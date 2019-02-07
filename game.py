@@ -25,7 +25,7 @@ class Game:
         """ Making the rows of enemies """
         for b in range(5): # 5 vertical rows of enemies
             self.xPos = 100 # Original starting x position
-            for i in range(11): # 11 horizontal rows of enemies
+            for i in range(10): # 11 horizontal rows of enemies
                 self.e = Enemy(self.xPos, 40 + (50 * b)) # Spawning an enemy
                 self.all_sprites.add(self.e) # Adding it to the all_sprites group
                 self.enemies.add(self.e) # Adding it to the enemies group
@@ -60,11 +60,11 @@ class Game:
             if oneEnemy.rect.right > WIDTH: # if one hits the edge ...
                 for allEnemies in self.enemies: # Change the direction of all the enemies
                     allEnemies.speedx *= -1
-                    allEnemies.rect.y += 5
+                    allEnemies.rect.y += 2
             if oneEnemy.rect.left < 0: # if one hits the edge ...
                 for allEnemies in self.enemies: # Change the direction of all the enemies
                     allEnemies.speedx *= -1
-                    allEnemies.rect.y += 5
+                    allEnemies.rect.y += 2
             
     def draw(self):
         self.backgroundrect = self.background.get_rect()
