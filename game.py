@@ -52,14 +52,20 @@ class Game:
 
     def update(self):
         # Game loop - update
+        """ update all the sprites """
         self.all_sprites.update()
 
-        for e in self.enemies:
-            if e.rect.right > WIDTH:
-                for e2 in self.enemies:
-                    e2.speedx *= -1
-
-    
+        """make all the enemies bounce when one hits the edge"""
+        for oneEnemy in self.enemies:
+            if oneEnemy.rect.right > WIDTH: # if one hits the edge ...
+                for allEnemies in self.enemies: # Change the direction of all the enemies
+                    allEnemies.speedx *= -1
+                    allEnemies.rect.y += 5
+            if oneEnemy.rect.left < 0: # if one hits the edge ...
+                for allEnemies in self.enemies: # Change the direction of all the enemies
+                    allEnemies.speedx *= -1
+                    allEnemies.rect.y += 5
+            
     def draw(self):
         self.backgroundrect = self.background.get_rect()
         self.screen.blit(self.background, self.backgroundrect)
