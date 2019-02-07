@@ -1,7 +1,7 @@
 from game import *
 
 class Player(pygame.sprite.Sprite):
-
+    print('ello')
     """ The main player who shoots the enemies """
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
