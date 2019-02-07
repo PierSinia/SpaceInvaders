@@ -3,7 +3,6 @@ from game import *
 class Player(pygame.sprite.Sprite):
 
     """ The main player who shoots the enemies """
-
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.player_img = pygame.image.load("img/Laser_Cannon.png")

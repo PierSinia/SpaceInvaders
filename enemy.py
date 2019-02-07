@@ -13,7 +13,7 @@ class Enemy(pygame.sprite.Sprite):
             
     def update(self):
         self.rect.x += self.speedx
-
+        
         if self.rect.left < 0:
             self.speedx *= -1
             self.rect.y += 60
