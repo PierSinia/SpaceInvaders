@@ -23,7 +23,6 @@ class Game:
         self.all_sprites.add(self.player)
 
         """ Making the rows of enemies """
-
         for b in range(5): # 5 vertical rows of enemies
             self.xPos = 100 # Original starting x position
             for i in range(11): # 11 horizontal rows of enemies
@@ -54,6 +53,12 @@ class Game:
     def update(self):
         # Game loop - update
         self.all_sprites.update()
+
+        for e in self.enemies:
+            if e.rect.right > WIDTH:
+                for e2 in self.enemies:
+                    e2.speedx *= -1
+
     
     def draw(self):
         self.backgroundrect = self.background.get_rect()
