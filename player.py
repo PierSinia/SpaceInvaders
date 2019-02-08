@@ -18,13 +18,21 @@ class Player(pygame.sprite.Sprite):
             self.rect.x -= 4
         if key[pygame.K_RIGHT]:
             self.rect.x += 4
+        
+        self.rect.x += self.speedx
 
         """ Player can't go off the screen """
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
         if self.rect.left < 0:
             self.rect.left = 0
+        
 
-        self.rect.x += self.speedx
+         
+        
+       
+
+       
+
 
    
