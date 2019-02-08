@@ -1,4 +1,5 @@
 from game import *
+from bullet import Bullet
 
 class Player(pygame.sprite.Sprite):
     """ The main player who shoots the enemies """
@@ -25,4 +26,5 @@ class Player(pygame.sprite.Sprite):
             self.rect.left = 0
 
         self.rect.x += self.speedx
-        
+
+   
