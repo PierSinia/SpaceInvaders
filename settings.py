@@ -1,11 +1,11 @@
-TITLE = "Space Invaders"
+TITLE = "SPACE INVADERS!"
 WIDTH = 780
 HEIGHT = 540
 
-# Hoe snel de game gaat
+# speed of the game
 FPS = 60
 
-# Kleuren defineren
+# RGB colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
