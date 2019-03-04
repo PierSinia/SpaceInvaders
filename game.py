@@ -72,10 +72,13 @@ class Game(object):
 
     def player_shoot(self):
         """ Make the player shoot bullets """
-        self.bullet = Bullet(self.player.rect.centerx, self.player.rect.top)
+        self.bullet = Bullet(self.player.rect.centerx, self.player.rect.top, -10, YELLOW)
         self.all_sprites.add(self.bullet)
         self.bullets.add(self.bullet)
-    
+
+    def enemy_shoot(self):
+        pass
+
     def events(self):
         # Events
         for event in pygame.event.get():
@@ -88,6 +91,14 @@ class Game(object):
 
     def update(self):
         # Game loop - update
+        for enemy in self.enemies:
+            # Have a random 1 in 200 change of shooting each frame
+            if random.randrange(3000) == 0:
+                self.enemy_bullet = Bullet(enemy.rect.centerx, enemy.rect.bottom, 7, RED)
+                self.all_sprites.add(self.enemy_bullet)
+                self.bullets.add(self.enemy_bullet)
+
+
         """ update all the sprites """
         self.all_sprites.update()
         self.bulletEnemyHit = pygame.sprite.groupcollide(self.bullets, self.enemies, True, True)
