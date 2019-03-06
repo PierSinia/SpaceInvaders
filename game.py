@@ -8,6 +8,7 @@ from enemybullet import EnemyBullet
 from playerbullet import PlayerBullet
 from enemy import Enemy
 from obstacle import Obstacle
+from lives import Lives
 
 class Game(object):
     """ Game class - game logic """
@@ -27,6 +28,8 @@ class Game(object):
         self.player_bullets = pygame.sprite.Group()
         self.enemy_bullets = pygame.sprite.Group()
         self.obstacles = pygame.sprite.Group()
+        self.lives = Lives(3)
+
 
         """ Making the rows of enemies """
         for b in range(5): # 5 vertical rows of enemies
@@ -36,7 +39,9 @@ class Game(object):
                 self.all_sprites.add(self.e) # Adding it to the all_sprites group
                 self.enemies.add(self.e) # Adding it to the enemies group
                 self.xPos += 50 # Change x position every time with the same value when a new enemy has been made
+
         
+
         """ drawing the obstacles """
         # TODO: make the code shorter
         for b in range(5): 
@@ -46,6 +51,7 @@ class Game(object):
                 self.all_sprites.add(self.obstacle) # Adding it to the all_sprites group
                 self.obstacles.add(self.obstacle) 
                 self.xPos += 10 
+
         for b in range(5): 
             self.xPos = (WIDTH / 2) - 35 
             for i in range(7): # 
@@ -69,6 +75,7 @@ class Game(object):
             self.update()
             self.enemy_shoot()
             self.draw()
+        
         quit()
         pygame.quit()
         sys.exit()
@@ -78,12 +85,14 @@ class Game(object):
         self.playerbullet = PlayerBullet(self.player.rect.centerx, self.player.rect.top, -10, YELLOW)
         self.all_sprites.add(self.playerbullet)
         self.player_bullets.add(self.playerbullet)
+    
+    """ draw lives """
 
     def enemy_shoot(self):
         for enemy in self.enemies:
-            # Have a random 1 in 200 change of shooting each frame
-            if random.randrange(3000) == 0:
-                self.enemy_bullet = EnemyBullet(enemy.rect.centerx, enemy.rect.bottom, 7, RED)
+            # Have a random 1 in 1400 change of shooting each frame
+            if random.randrange(1400) == 0:
+                self.enemy_bullet = EnemyBullet(enemy.rect.centerx, enemy.rect.bottom, 10, RED)
                 self.all_sprites.add(self.enemy_bullet)
                 self.enemy_bullets.add(self.enemy_bullet)
 
@@ -96,15 +105,24 @@ class Game(object):
                 self.running = False
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 self.player_shoot()
+                
 
 
     def update(self):
         # Game loop - update
-        
         """ update all the sprites """
         self.all_sprites.update()
         self.playerbulletEnemyHit = pygame.sprite.groupcollide(self.player_bullets, self.enemies, True, True)
         self.PlayerObstacle_hit = pygame.sprite.groupcollide(self.player_bullets, self.obstacles, True, True)
+        self.enemybulletObstacle_hit = pygame.sprite.groupcollide(self.enemy_bullets, self.obstacles, True, True)
+        self.enemybulletPlayer_hit = pygame.sprite.spritecollide(self.player, self.enemy_bullets, True)
+        if self.enemybulletPlayer_hit:
+            self.player.rect.x = WIDTH /2
+            self.lives.current -= 1
+
+        if self.lives.current == 0:
+            self.running = False
+        
         """make all the enemies bounce when one hits the edge"""
         for oneEnemy in self.enemies:
             if oneEnemy.rect.right > WIDTH: # if one hits the edge
@@ -123,6 +141,6 @@ class Game(object):
         self.backgroundrect = self.background.get_rect()
         self.screen.blit(self.background, self.backgroundrect)
         self.all_sprites.draw(self.screen)
-
+        self.lives.draw(self.screen)
         """ Update the screen when everything has been drawn """
         pygame.display.flip()
