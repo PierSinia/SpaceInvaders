@@ -3,7 +3,7 @@ from game import *
 class EnemyBullet(pygame.sprite.Sprite):
     def __init__(self, x, y, speedy, color):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((10, 20))
+        self.image = pygame.Surface((5, 25))
         self.image.fill(color)
         self.rect = self.image.get_rect()
         self.rect.x = x

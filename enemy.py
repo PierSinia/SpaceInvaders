@@ -12,7 +12,8 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.speedx = 1.0
-            
+        self.timer = .6
+
     def update(self):
         self.rect.x += self.speedx
     
