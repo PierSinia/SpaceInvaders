@@ -89,9 +89,10 @@ class Game(object):
     """ draw lives """
 
     def enemy_shoot(self):
+        self.shooting_chance = 1400
         for enemy in self.enemies:
-            # Have a random 1 in 1400 change of shooting each frame
-            if random.randrange(1400) == 0:
+            # Have a random chance of shooting each frame
+            if random.randrange(self.shooting_chance) == 0:
                 self.enemy_bullet = EnemyBullet(enemy.rect.centerx, enemy.rect.bottom, 10, RED)
                 self.all_sprites.add(self.enemy_bullet)
                 self.enemy_bullets.add(self.enemy_bullet)
@@ -105,9 +106,7 @@ class Game(object):
                 self.running = False
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 self.player_shoot()
-                
-
-
+            
     def update(self):
         # Game loop - update
         """ update all the sprites """
